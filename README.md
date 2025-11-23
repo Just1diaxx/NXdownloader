@@ -1,7 +1,9 @@
 # NXBrew Downloader
 
-NxBrew Downloader is a modern desktop application built with Electron, designed to search, preview, and extract download links from the NxBrew website through a clean and intuitive user interface.
-The app performs intelligent scraping, displays game covers, organizes download blocks (Base Game, DLC, Updates), and retrieves direct download links wrapped behind OuO.io.
+NXBrew Downloader is a modern desktop application built with Electron, designed to search, preview, and extract download links from the NXBrew website through a clean and intuitive user interface.
+
+The app performs intelligent scraping, displays game covers, organizes download blocks (Base Game, DLC, Updates), and retrieves direct download links wrapped behind ouo.io.
+
 The goal of this project is to provide a fast, safe, and convenient desktop tool for accessing NxBrew content without distractions — ideal for users who want clean access to the download information.
 
 ## 🔑 Key Features
