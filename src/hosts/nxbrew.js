@@ -9,7 +9,7 @@ async function searchGame(query) {
   const $ = cheerio.load(res.data);
 
   const results = [];
-  $("h2.post-title").slice(0, 10).each((i, el) => {
+  $("h2.post-title").each((i, el) => {
     const a = $(el).find("a");
     const img = $(el).closest(".post").find("img").attr("src") || "";
     results.push({ title: a.text().trim(), link: a.attr("href"), img });
@@ -28,7 +28,7 @@ async function getDownloadBlocks(gameUrl) {
 
     const links = [];
     $(el).find(".wp-block-column p").each((j, p) => {
-      $(p).find("a[href^='https://ouo.io']").each((k, a) => {
+      $(p).find("a[href]").each((k, a) => {
         const href = $(a).attr("href");
         const strongText = $(p).find("strong").first().text().trim();
         const hostName = strongText || $(a).text().trim() || "Unknown";

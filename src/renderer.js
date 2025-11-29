@@ -1,4 +1,3 @@
-const { searchGame, getDownloadBlocks } = require("./nxbrew.js");
 const { ipcRenderer } = require("electron");
 
 ipcRenderer.on("update_available", () => {
@@ -15,11 +14,13 @@ ipcRenderer.on("update_downloaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("search-form");
     const input = document.getElementById("search-input");
+    const hostSelect = document.getElementById("host-select");
     const resultsContainer = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        resultsContainer.innerHTML = "<p>Searching on NxBrew...</p>";
+        resultsContainer.innerHTML = `<p>Searching on ${hostSelect.value}...</p>`;
+        const { searchGame, getDownloadBlocks } = require(`./hosts/${hostSelect.value.toLowerCase()}.js`);
 
         const query = input.value.trim();
         if (!query) return;
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             resultsContainer.innerHTML = "";
 
-            results.forEach((game) => {
+            results.slice(0, 8).forEach((game) => {
                 const card = document.createElement("div");
                 card.className = "game-card";
 

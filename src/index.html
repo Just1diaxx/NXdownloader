@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>NxBrew Downloader</title>
+    <title>NX Downloader</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -160,13 +160,30 @@
             font-size: 32px;
             font-weight: bold;
         }
+
+        #host-select {
+            margin-top: 5px;
+            margin-left: 25px;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #2c2c2c;
+            color: #f5f5f5;
+            cursor: pointer;
+            transition: 0.2s;
+        }
     </style>
 </head>
 
 <body>
     <div class="app-header">
         <img src="logo.png" class="app-logo">
-        <span class="app-title">NXBrew Downloader</span>
+        <span class="app-title">NX Downloader</span>
+        <select id="host-select">
+            <option value="NXBrew">NXBrew</option>
+            <option value="Romslab">Romslab</option>
+        </select>
     </div>
 
     <form id="search-form">

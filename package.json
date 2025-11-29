@@ -1,5 +1,5 @@
 {
-  "name": "nxbrewdownloader",
+  "name": "nxdownloader",
   "version": "1.0.0",
   "main": "index.js",
   "type": "commonjs",
@@ -13,11 +13,11 @@
       {
         "provider": "github",
         "owner": "Just1diaxx",
-        "repo": "nxbrewdownloader"
+        "repo": "nxdownloader"
       }
     ],
-    "appId": "com.just.nxbrewdownloader",
-    "productName": "NxBrew Downloader",
+    "appId": "com.just.nxdownloader",
+    "productName": "NXDownloader",
     "files": [
       "index.js",
       "src/**/*",
