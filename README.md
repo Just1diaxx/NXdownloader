@@ -2,9 +2,9 @@
 
 NX Downloader is a modern desktop application built with Electron, designed to search, preview, and extract download links from roms websites. 
 
-The app performs intelligent scraping, displays game covers, organizes download blocks (Base Game, DLC, Updates), and retrieves direct download links wrapped behind ouo.io.
+The app performs intelligent scraping, displaying game covers, organizing download blocks (Base Game, DLC, Updates) and providing direct download links.
 
-The goal of this project is to provide a fast, safe, and convenient desktop tool for accessing NxBrew content without distractions — ideal for users who want clean access to the download information.
+The goal of this project is to provide a fast, safe, and convenient desktop tool for accessing roms content without distractions — ideal for users who want clean access to the download information.
 
 ## 🔑 Key Features
 - 🔍 Fast game search with cover preview
