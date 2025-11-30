@@ -41,7 +41,7 @@ The application provides a significantly smoother experience compared to browsin
 
 ## 📥 Download
 
-Compiled builds for Windows are available in:
+Compiled builds for Windows, MacOS and Linux are available in:
 
 👉 GitHub --> Releases
 
