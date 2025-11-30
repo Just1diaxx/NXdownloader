@@ -1,6 +1,6 @@
-# NXBrew Downloader
+# NX Downloader
 
-NXBrew Downloader is a modern desktop application built with Electron, designed to search, preview, and extract download links from the NXBrew website through a clean and intuitive user interface.
+NX Downloader is a modern desktop application built with Electron, designed to search, preview, and extract download links from roms websites. 
 
 The app performs intelligent scraping, displays game covers, organizes download blocks (Base Game, DLC, Updates), and retrieves direct download links wrapped behind ouo.io.
 
@@ -8,6 +8,7 @@ The goal of this project is to provide a fast, safe, and convenient desktop tool
 
 ## 🔑 Key Features
 - 🔍 Fast game search with cover preview
+- 🤔 Provider selector
 - 📦 Organized download blocks (Base Game, DLC, Updates, etc.)
 - 🔗 Host detection (1Fichier, MegaUp, FreeDL, etc.)
 - 📋 Copy link button for quick access
@@ -17,7 +18,16 @@ The goal of this project is to provide a fast, safe, and convenient desktop tool
 - 🖥️ Multi-platform builds for Windows (.exe), macOS (.dmg), and Linux (.AppImage / .deb)
 - 🚫 No ads, no popups, no redirects — clean extraction of download information
 
-The application provides a significantly smoother experience compared to browsing NxBrew manually, removing unnecessary ads, clicks, pages, and popup interruptions.
+## 🌐 Currently supported websites
+| Name | Search | Extract links |
+| -------- | ------- | -------- |
+| Romslab | ✅ | ✅ |
+| NxBrew | ✅ | ✅ |
+| APKMARA | ❌ | ❌ |
+
+You can open an [issue](https://github.com/Just1diaxx/NXdownloader/issues) to suggest websites!
+
+The application provides a significantly smoother experience compared to browsing the websites manually, removing unnecessary ads, clicks, pages, and popup interruptions.
 
 ## 🧩 Technologies Used
 - Electron (cross-platform desktop framework)
