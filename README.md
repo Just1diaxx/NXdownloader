@@ -23,7 +23,8 @@ The goal of this project is to provide a fast, safe, and convenient desktop tool
 | -------- | ------- | -------- |
 | Romslab | ✅ | ✅ |
 | NxBrew | ✅ | ✅ |
-| APKMARA | ❌ | ❌ |
+| NSWPedia | ✅ | ✅ |
+| APKMARA - cloudfare protected | ❌ | ❌ |
 
 You can open an [issue](https://github.com/Just1diaxx/NXdownloader/issues) to suggest websites!
 
