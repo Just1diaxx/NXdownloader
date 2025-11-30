@@ -52,18 +52,28 @@ async function getDownloadBlocks(url) {
   $(".btns a").each((i, el) => {
     const links = [];
     const href = $(el).attr("href");
-    const text = $(el).text().trim();
+    let text = $(el).text().trim();
 
     if (!href) return;
     if (text.toLowerCase().includes("discord")) return;
+    if (text.toLowerCase() === 'download here') text = 'Base Game';
 
-    links.push({ link: href, host: text });
+    links.push({ link: href, host: getDomainName(href) });
     blocks[text] = links;
   });
 
   return blocks;
 }
 
+function getDomainName(url) {
+  if (!/^https?:\/\//i.test(url)) {
+    url = "https://" + url;
+  }
+  const hostname = new URL(url).hostname;
+  const cleanHost = hostname.replace(/^(.*\.)?([^\.]+)\.[^.]+$/, "$2");
 
+  const parts = cleanHost.split(".");
+  return parts[0].split('')[0].toUpperCase() + parts[0].split('').slice(1).join('');
+}
 
 module.exports = { searchGame, getDownloadBlocks };

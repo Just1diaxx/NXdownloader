@@ -37,6 +37,8 @@ function createWindow() {
         }, 1500);
     });
 
+    if (!app.isPackaged) win.webContents.openDevTools();
+
     autoUpdater.checkForUpdatesAndNotify();
 
     autoUpdater.on("update-available", () => {
