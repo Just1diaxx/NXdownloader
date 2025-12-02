@@ -1,4 +1,5 @@
 const { ipcRenderer } = require("electron");
+let currentTaskId = 0;
 
 ipcRenderer.on("update_available", () => {
     alert("New update found! Downloading now...");
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsContainer = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
+        currentTaskId++;
+        const taskId = currentTaskId;
         e.preventDefault();
         resultsContainer.innerHTML = `<p>Searching on ${hostSelect.value}...</p>`;
         const { searchGame, getDownloadBlocks } = require(`./hosts/${hostSelect.value.toLowerCase()}.js`);
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const results = await searchGame(query);
+            if (taskId !== currentTaskId) return;
             if (!results.length) {
                 resultsContainer.innerHTML = "<p>No results.</p>";
                 return;
@@ -35,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resultsContainer.innerHTML = "";
 
             results.slice(0, 8).forEach((game) => {
+                const taskId = currentTaskId;
                 const card = document.createElement("div");
                 card.className = "game-card";
 
@@ -47,17 +52,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 card.appendChild(img);
                 card.appendChild(title);
+                if (taskId !== currentTaskId) return;
                 resultsContainer.appendChild(card);
 
                 card.addEventListener("click", async () => {
-                    resultsContainer.innerHTML = "<p>Getting download links...</p>";
+                    currentTaskId++;
+                    const taskId = currentTaskId;
+                    resultsContainer.innerHTML = "";
+
+                    const headerWrapper = document.createElement("div");
+                    headerWrapper.style.textAlign = "center";
+                    headerWrapper.style.marginBottom = "40px";
+
+                    const topTitle = document.createElement("h2");
+                    topTitle.textContent = game.title;
+
+                    const topImg = document.createElement("img");
+                    topImg.src = game.img;
+                    topImg.style.width = "250px";
+                    topImg.style.borderRadius = "10px";
+                    topImg.style.marginTop = "10px";
+
+                    headerWrapper.appendChild(topTitle);
+                    headerWrapper.appendChild(topImg);
+                    resultsContainer.appendChild(headerWrapper);
 
                     const blocks = await getDownloadBlocks(game.link);
+                    if (taskId !== currentTaskId) return;
 
-                    resultsContainer.innerHTML = "";
-                    resultsContainer.style.display = "grid";
-                    resultsContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(420px, 1fr))";
-                    resultsContainer.style.gap = "40px";
+                    if (!Object.keys(blocks).length) {
+                        resultsContainer.innerHTML = "<p>No download links found.</p>";
+                        return;
+                    }
+
+                    const blocksWrapper = document.createElement("div");
+                    blocksWrapper.style.display = "grid";
+                    blocksWrapper.style.gridTemplateColumns = "repeat(auto-fit, minmax(420px, 1fr))";
+                    blocksWrapper.style.gap = "40px";
+                    resultsContainer.appendChild(blocksWrapper);
 
                     for (const blockTitle in blocks) {
                         const blockDiv = document.createElement("div");
@@ -81,8 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             badge.className = "host-badge";
                             badge.textContent = l.host;
 
-                            item.appendChild(link);
-
                             const copyBtn = document.createElement("span");
                             copyBtn.className = "host-badge";
                             copyBtn.textContent = "📋";
@@ -94,19 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
                                 setTimeout(() => (copyBtn.textContent = "📋"), 600);
                             });
 
+                            item.appendChild(link);
                             item.appendChild(copyBtn);
                             item.appendChild(badge);
 
                             blockDiv.appendChild(item);
                         });
-
-                        resultsContainer.appendChild(blockDiv);
+                        if (taskId !== currentTaskId) return;
+                        blocksWrapper.appendChild(blockDiv);
                     }
                 });
             });
         } catch (err) {
             console.error(err);
-            resultsContainer.innerHTML = "<p>Error while searching, check console.</p>";
+            resultsContainer.innerHTML = "<p>Error occurred while searching.</p>";
         }
     });
 });

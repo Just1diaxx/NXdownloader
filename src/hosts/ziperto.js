@@ -41,20 +41,22 @@ async function getDownloadBlocks(url) {
 
     const blocks = {};
 
-    $("p").each((i, el) => {
-        const strong = $(el).find("strong").first();
-        if (!strong.length) return;
+    $("p strong").each((i, strong) => {
+        const title = $(strong).text().trim();
 
-        const title = strong.text().trim();
+        if (!/download|update|dlc/i.test(title)) return;
 
-        if (!title.toLowerCase().includes("download")) return;
+        const nextP = $(strong).closest("p").nextAll("p").first();
 
         const links = [];
 
-        $(el).find("a[href*='ouo.io'], a[href*='url=ouo.io']").each((_, a) => {
+        nextP.find("a[href], a[href]").each((_, a) => {
+            const link = $(a).attr("href").trim();
+            if (!/shortnest\.com/.test(link) && !link.includes("ouo.io")) return;
+
             links.push({
                 host: $(a).text().trim(),
-                link: $(a).attr("href")
+                link
             });
         });
 
