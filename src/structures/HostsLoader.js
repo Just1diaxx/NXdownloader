@@ -7,7 +7,7 @@ class HostsLoader {
     }
 
     load(hostName) {
-        const host = require(`${process.cwd()}/src/hosts/${hostName}`);
+        const host = require(__dirname + `/../hosts/${hostName}`);
         const instance = new host();
         this.hosts.set(host.name, instance);
     }
@@ -17,7 +17,7 @@ class HostsLoader {
     }
 
     init() {
-        const routes = fs.readdirSync(process.cwd() + "/src/hosts").filter(file => file.endsWith(".js"));
+        const routes = fs.readdirSync(__dirname + '/../hosts').filter(file => file.endsWith(".js"));
         routes.forEach(file => {
             if (!this.isLoaded(file.split(".")[0])) {
                 this.load(file)
