@@ -1,4 +1,6 @@
 const { ipcRenderer } = require("electron");
+const HostsLoader = require("./structures/HostsLoader.js");
+const hostsLoader = new HostsLoader();
 let currentTaskId = 0;
 
 ipcRenderer.on("update_available", () => {
@@ -11,11 +13,19 @@ ipcRenderer.on("update_downloaded", () => {
     }
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("search-form");
     const input = document.getElementById("search-input");
+
     const hostSelect = document.getElementById("host-select");
+    hostSelect.innerHTML = "";
+    hostsLoader.hosts.forEach((host) => {
+        const option = document.createElement("option");
+        option.value = host.name;
+        option.textContent = host.name;
+        hostSelect.appendChild(option);
+    });
+
     const resultsContainer = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
@@ -23,13 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskId = currentTaskId;
         e.preventDefault();
         resultsContainer.innerHTML = `<p>Searching on ${hostSelect.value}...</p>`;
-        const { searchGame, getDownloadBlocks } = require(`./hosts/${hostSelect.value.toLowerCase()}.js`);
+        const host = hostsLoader.hosts.get(hostSelect.value);
 
         const query = input.value.trim();
         if (!query) return;
 
         try {
-            const results = await searchGame(query);
+            const results = await host.searchGame(query);
             if (taskId !== currentTaskId) return;
             if (!results.length) {
                 resultsContainer.innerHTML = "<p>No results.</p>";
@@ -77,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     headerWrapper.appendChild(topImg);
                     resultsContainer.appendChild(headerWrapper);
 
-                    const blocks = await getDownloadBlocks(game.link);
+                    const blocks = await host.getDownloadBlocks(game.link);
                     if (taskId !== currentTaskId) return;
 
                     if (!Object.keys(blocks).length) {
