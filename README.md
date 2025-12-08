@@ -26,6 +26,7 @@ The goal of this project is to provide a fast, safe, and convenient desktop tool
 | NSWPedia | ✅ | ✅ |
 | Romsim | ✅ | ✅ |
 | Ziperto | ✅ | ✅ |
+| SwitchRoms - cloudfare protected | ❌ | ❌ |
 | APKMARA - cloudfare protected | ❌ | ❌ |
 
 You can open an [issue](https://github.com/Just1diaxx/NXdownloader/issues) to suggest websites!
