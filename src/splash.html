@@ -4,28 +4,60 @@
 <meta charset="UTF-8">
 <title>Loading</title>
 <style>
+    :root {
+        --bg: #0b0b0f;
+        --bg-2: #0f1117;
+        --border: #2a2a33;
+        --text: #e8e8ea;
+        --muted: #a1a1aa;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
         margin: 0;
-        background: #121212;
+        background:
+            radial-gradient(1200px 600px at 10% 0%, rgba(29,185,84,.12), transparent 60%),
+            radial-gradient(900px 500px at 90% 10%, rgba(107,183,255,.12), transparent 60%),
+            linear-gradient(180deg, var(--bg), var(--bg-2));
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        color: white;
-        font-family: sans-serif;
+        color: var(--text);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 16px;
+        overflow: hidden;
+    }
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+        max-width: 100%;
     }
     .logo {
-        width: 130px;
-        animation: pulse 1.3s infinite ease-in-out;
+        width: 120px;
+        height: 120px;
+        border-radius: 24px;
+        animation: pulse 1.4s infinite ease-in-out;
+        filter: drop-shadow(0 12px 24px rgba(0,0,0,.45));
     }
     @keyframes pulse {
-        0% { transform: scale(1); opacity: .7; }
-        50% { transform: scale(1.1); opacity: 1; }
-        100% { transform: scale(1); opacity: .7; }
+        0%   { transform: scale(1); opacity: .8; }
+        50%  { transform: scale(1.06); opacity: 1; }
+        100% { transform: scale(1); opacity: .8; }
     }
 </style>
 </head>
 <body>
-    <img src="./logo.png" class="logo">
+    <div class="card">
+        <img src="./logo.png" class="logo">
+    </div>
 </body>
 </html>

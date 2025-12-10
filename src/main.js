@@ -7,7 +7,10 @@ function createWindow() {
     const splash = new BrowserWindow({
         width: 400,
         height: 300,
+        resizable: false,
         frame: false,
+        center: true,
+        skipTaskbar: true,
         icon: path.join(__dirname, "logo.png"),
         transparent: true,
         alwaysOnTop: true
@@ -31,7 +34,6 @@ function createWindow() {
     win.once("ready-to-show", () => {
         setTimeout(() => {
             splash.close();
-            win.show();
             win.removeMenu();
             win.maximize();
         }, 1500);
