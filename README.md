@@ -26,6 +26,7 @@ The goal of this project is to provide a fast, safe, and convenient desktop tool
 | NSWPedia | ✅ | ✅ |
 | Romsim | ✅ | ✅ |
 | Ziperto | ✅ | ✅ |
+| SwitchROM | ✅ | ✅ |
 | SwitchRoms - cloudfare protected | ❌ | ❌ |
 | APKMARA - cloudfare protected | ❌ | ❌ |
 
