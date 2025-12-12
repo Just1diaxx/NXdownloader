@@ -14,11 +14,88 @@ ipcRenderer.on("update_downloaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("search-form");
-    const input = document.getElementById("search-input");
+    document.body.innerHTML = "";
 
-    const hostSelect = document.getElementById("host-select");
-    hostSelect.innerHTML = "";
+    const container = document.createElement("div");
+    container.className = "container";
+
+    const header = document.createElement("div");
+    header.className = "app-header";
+
+    const brand = document.createElement("div");
+    brand.className = "brand";
+    const logo = document.createElement("img");
+    logo.src = "logo.png";
+    logo.className = "app-logo";
+    const title = document.createElement("span");
+    title.className = "app-title";
+    title.textContent = "NX Downloader";
+    brand.appendChild(logo);
+    brand.appendChild(title);
+
+    const controls = document.createElement("div");
+    controls.className = "controls";
+    const hostSelect = document.createElement("select");
+    hostSelect.id = "host-select";
+    const guideBtn = document.createElement("button");
+    guideBtn.id = "guide-btn";
+    guideBtn.className = "guide-btn";
+    guideBtn.textContent = "How to Merge Multiple Files";
+    controls.appendChild(hostSelect);
+    controls.appendChild(guideBtn);
+
+    header.appendChild(brand);
+    header.appendChild(controls);
+
+    const hero = document.createElement("div");
+    hero.className = "hero";
+    const form = document.createElement("form");
+    form.id = "search-form";
+    form.className = "search";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = "search-input";
+    input.placeholder = "Insert a game title";
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.textContent = "Search";
+    form.appendChild(input);
+    form.appendChild(submit);
+    hero.appendChild(form);
+
+    const guide = document.createElement("div");
+    guide.id = "guide";
+    guide.className = "guide";
+    guide.innerHTML = `<div class="guide-title">Guide: How to Merge Multiple Files</div>
+        <ol class="guide-list">
+            <li>Download all parts from the same host</li>
+            <li>Extract the files and insert them into a folder</li>
+            <li>Rename them in numbers, like 00, 01, 02, 03...</li>
+            <li>Download <a class="copy-link" style="color: #007bff;" href="https://github.com/dezem/SAK/releases" target="_blank">SKA tool</a></li>
+            <li>Use XCI/NSP merge, in base of the version you choose</li>
+            <li>Select the 00 file from the folder where you inserted the files.</li>
+            <li>Click Merge</li>
+            <li>The full NSP file will appear in the folder where you inserted the files!</li>
+        </ol>`;
+
+    const resultsContainer = document.createElement("div");
+    resultsContainer.id = "results";
+
+    container.appendChild(header);
+    container.appendChild(hero);
+    container.appendChild(guide);
+    container.appendChild(resultsContainer);
+    document.body.appendChild(container);
+    const toast = document.createElement("div");
+    toast.id = "toast";
+    toast.className = "toast";
+    document.body.appendChild(toast);
+    const notifyCopied = () => {
+        toast.textContent = "Copied✅";
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1200);
+    };
+
     hostsLoader.hosts.forEach((host) => {
         const option = document.createElement("option");
         option.value = host.name;
@@ -26,7 +103,19 @@ document.addEventListener("DOMContentLoaded", () => {
         hostSelect.appendChild(option);
     });
 
-    const resultsContainer = document.getElementById("results");
+    guideBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        guide.classList.toggle("show");
+        guide.style.display = guide.classList.contains("show") ? "block" : "none";
+    });
+
+    const skaLink = guide.querySelector("a.copy-link");
+    if (skaLink) {
+        skaLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText(skaLink.href).then(() => notifyCopied());
+        });
+    }
 
     form.addEventListener("submit", async (e) => {
         currentTaskId++;
@@ -129,9 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             copyBtn.style.cursor = "pointer";
 
                             copyBtn.addEventListener("click", () => {
-                                navigator.clipboard.writeText(l.link);
-                                copyBtn.textContent = "✅";
-                                setTimeout(() => (copyBtn.textContent = "📋"), 600);
+                                navigator.clipboard.writeText(l.link).then(() => notifyCopied());
                             });
 
                             item.appendChild(link);

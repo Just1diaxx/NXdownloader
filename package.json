@@ -1,6 +1,6 @@
 {
   "name": "nxdownloader",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "main": "index.js",
   "type": "commonjs",
   "private": true,
